@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -20,7 +22,10 @@ public class Employee {
 	private Long employeeId;
 	
 	@NotNull(message = "{employee.name.absent}")
+	@Pattern(regexp = "[A-Za-z]+( [A-Za-z]+)*", message = "{employee.name.invalid}")
 	private String employeeName;
+	
+	@Pattern(regexp = "[A-Za-z]+( [A-Za-z]+)*", message = "{employee.job.invalid}")
 	private String jobDescription;
 	private Long managerId;
 	private Long salary;
