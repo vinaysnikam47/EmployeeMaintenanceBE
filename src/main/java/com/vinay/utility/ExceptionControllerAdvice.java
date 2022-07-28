@@ -48,19 +48,6 @@ public class ExceptionControllerAdvice {
 		return new ResponseEntity<ErrorInfo>(error, HttpStatus.NOT_FOUND);
 	}
 	
-	
-//	@ExceptionHandler(MethodArgumentNotValidException.class)
-//	public ResponseEntity<ErrorInfo> exceptionHandler(MethodArgumentNotValidException exception){
-//		ErrorInfo error = new ErrorInfo();
-//		error.setTimestamp(LocalDateTime.now());
-//		error.setErrorCode(HttpStatus.BAD_REQUEST.value());
-//		
-//		String errorMesaage = exception.getBindingResult().getAllErrors().stream().map(
-//				message -> message.getDefaultMessage()).collect(Collectors.joining(", "));
-//		error.setErrorMessage(errorMesaage);
-//		return new ResponseEntity<ErrorInfo>(error, HttpStatus.BAD_REQUEST);
-//	}
-	
 	@ExceptionHandler(ConstraintViolationException.class)
 	public ResponseEntity<ErrorInfo> pathVariableExceptionHandler(ConstraintViolationException exception){
 		ErrorInfo errorInfo = new ErrorInfo();
