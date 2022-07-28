@@ -16,6 +16,15 @@ import com.vinay.model.EmployeeDTO;
 import com.vinay.repository.DepartmentRepository;
 import com.vinay.repository.EmployeeRepository;
 
+
+/**
+ * EmployeeServiceImpl class contains business logic of different employee maintenance 
+ * services
+ *
+ * @version 1.00    27th AUG 2022 
+ * @author 			Vinay Nikam
+ *
+ */
 @Service(value = "employeeService")
 @Transactional
 public class EmployeeServiceImpl implements EmployeeService {
@@ -26,6 +35,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Autowired
 	private DepartmentRepository departmentRepository;
 
+	
+	/**
+	 * Method to fetch all the employees information from all departments
+	 * 
+	 * @param  pageable Contains pageNo, pageSize and sort parameter for pagination and sorting 
+	 * @return List<EmployeeDTO> object containing all employees information
+	 * @throws com.vinay.exception.EmployeeMaintenanceException
+	 */
 	@Override
 	public List<EmployeeDTO> getAllEmployees(Pageable pageable) throws EmployeeMaintenanceException {
 		Page<Employee> employeeList = employeeRepository.findAll(pageable);
@@ -37,6 +54,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 		}
 	}
 
+	
+	/**
+	 * Method to fetch information of single employee.
+	 * 
+	 * @param  id Long Employee Id of employee who's information to be fetched
+	 * @return EmployeeDTO object containing employee information
+	 * @throws com.vinay.exception.EmployeeMaintenanceException
+	 */
 	@Override
 	public EmployeeDTO getEmployeeById(Long id) throws EmployeeMaintenanceException {
 		Optional<Employee> optionalEmployee = employeeRepository.findById(id);
@@ -53,6 +78,15 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return empDTO;
 	}
 
+	
+	/**
+	 * Method to fetch all the employees with name similar to given pattern
+	 * 
+	 * @param  employeeName String object containing pattern from name of employee
+	 * @param  pageable Contains pageNo, pageSize and sort parameter for pagination and sorting
+	 * @return List<EmployeeDTO> object containing employee information
+	 * @throws com.vinay.exception.EmployeeMaintenanceException
+	 */
 	@Override
 	public List<EmployeeDTO> getAllEmployeesWithNameContaining(String employeeName, Pageable pageable) throws EmployeeMaintenanceException {
 		Page<Employee> employeeList = employeeRepository.findByEmployeeNameContainingIgnoreCase(employeeName, pageable);
@@ -64,6 +98,15 @@ public class EmployeeServiceImpl implements EmployeeService {
 		}
 	}
 	
+	
+	/**
+	 * Method to fetch all the employees working under the manager having id as managerId
+	 * 
+	 * @param  managerId Long object containing manager Id
+	 * @param  pageable Contains pageNo, pageSize and sort parameter for pagination and sorting
+	 * @return List<EmployeeDTO> object containing employee information
+	 * @throws com.vinay.exception.EmployeeMaintenanceException
+	 */
 	@Override
 	public List<EmployeeDTO> getAllEmployeesByManagerId(Long managerId, Pageable pageable) throws EmployeeMaintenanceException {
 		Page<Employee> employeeList = employeeRepository.findByManagerId(managerId, pageable);
@@ -75,6 +118,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 		}
 	}
 	
+	
+	/**
+	 * Method to add employee in database
+	 * 
+	 * @param  EmployeeDTO object which contains information of employee to be added in database
+	 * @return employeeId Long Id of added employee
+	 * @throws com.vinay.exception.DepartmentMaintenanceException
+	 */
 	@Override
 	public Long addEmployee(EmployeeDTO employeeDTO) throws DepartmentMaintenanceException {
 		Optional<Department> optionalDepartment = departmentRepository.findById(employeeDTO.getDepartmentId());
@@ -91,6 +142,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return employeeAfterInsert.getEmployeeId();
 	}
 	
+	
+	/**
+	 * Method to delete employee from database
+	 * 
+	 * @param  employeeId Long Employee Id of employee who's information to be deleted
+	 * @return Nothing
+	 * @throws com.vinay.exception.EmployeeMaintenanceException
+	 */
 	@Override
 	public void deleteEmployee(Long employeeId) throws EmployeeMaintenanceException {
 		Optional<Employee> optionalEmployee = employeeRepository.findById(employeeId);
@@ -98,6 +157,16 @@ public class EmployeeServiceImpl implements EmployeeService {
 		employeeRepository.deleteById(employeeId);
 	}
 	
+	
+	/**
+	 * Method to update employee information
+	 * 
+	 * @param  employeeId Long Employee Id of employee who's information to be updated
+	 * @param  EmployeeDTO object which contains updated information of employee
+	 * @return Nothing
+	 * @throws com.vinay.exception.EmployeeMaintenanceException
+	 * @throws com.vinay.exception.DepartmentMaintenanceException
+	 */
 	@Override
 	public void updateEmployee(Long employeeId, EmployeeDTO employeeDTO)
 			throws EmployeeMaintenanceException, DepartmentMaintenanceException {
@@ -116,6 +185,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 		}
 	}
 	
+	
+	/**
+	 * Helper function to create list of EmployeeDTO from Page<Employee>
+	 * 
+	 * @param  Page<Employee> Object from which employeeDTO list to be created
+	 * @return List<EmployeeDTO>
+	 * @throws Nothing
+	 */
 	private List<EmployeeDTO> getEmployeeDTOList(Page<Employee> employeeList){
 		List<EmployeeDTO> employeeDTOList = new ArrayList<>();
 		for(Employee emp: employeeList) {

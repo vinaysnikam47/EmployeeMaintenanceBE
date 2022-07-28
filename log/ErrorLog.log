@@ -866,3 +866,7 @@ List of constraint violations:[
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) ~[tomcat-embed-core-9.0.65.jar:9.0.65]
 	at java.lang.Thread.run(Thread.java:832) ~[?:?]
+28-Jul-2022 11:55:21 INFO - Application shutdown requested.
+28-Jul-2022 11:55:22 INFO - Closing JPA EntityManagerFactory for persistence unit 'default'
+28-Jul-2022 11:55:22 INFO - HikariPool-1 - Shutdown initiated...
+28-Jul-2022 11:55:22 INFO - HikariPool-1 - Shutdown completed.
