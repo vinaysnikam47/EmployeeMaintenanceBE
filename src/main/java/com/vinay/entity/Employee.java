@@ -6,9 +6,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
+import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
 
 @Entity
 @Table(name = "employee")
@@ -18,6 +19,7 @@ public class Employee {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long employeeId;
 	
+	@NotNull(message = "{employee.name.absent}")
 	private String employeeName;
 	private String jobDescription;
 	private Long managerId;

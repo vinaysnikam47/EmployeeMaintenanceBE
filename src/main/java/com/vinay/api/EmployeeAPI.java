@@ -2,6 +2,8 @@ package com.vinay.api;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.data.domain.PageRequest;
@@ -69,7 +71,7 @@ public class EmployeeAPI {
 	}
 	
 	@PostMapping(value = "/add")
-	public ResponseEntity<String> addEmployee(@RequestBody EmployeeDTO employeeDTO) throws DepartmentMaintenanceException{
+	public ResponseEntity<String> addEmployee(@Valid @RequestBody EmployeeDTO employeeDTO) throws DepartmentMaintenanceException{
 		Long employeeId = employeeService.addEmployee(employeeDTO);
 		String message = environment.getProperty("EmployeeService.ADD_SUCCESS") + employeeId;
 		ResponseEntity<String> response = new ResponseEntity<String>(message, HttpStatus.OK);

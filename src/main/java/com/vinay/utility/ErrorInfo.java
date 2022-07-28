@@ -1,4 +1,4 @@
-package com.vinay.exception;
+package com.vinay.utility;
 
 import java.time.LocalDateTime;
 
